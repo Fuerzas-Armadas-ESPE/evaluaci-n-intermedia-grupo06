@@ -1,7 +1,8 @@
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Container, Nav, Form, Button } from 'react-bootstrap';
+import { Container, Nav, Form, Button, Offcanvas } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-
+import { FaHome, FaList, FaPlus, FaSignInAlt } from 'react-icons/fa';
 
 import Productos from '../Productos';
 import Crear from '../Crear';
@@ -9,49 +10,58 @@ import Inicio from '../Inicio';
 import Login from '../Login';
 
 function Navegacion() {
-  
+  const [showSidebar, setShowSidebar] = React.useState(false);
+
+  const handleSidebarToggle = () => setShowSidebar(!showSidebar);
+
   return (
     <Router>
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand>Programacion Integrativa</Navbar.Brand>
-          <Nav>
-            <Nav.Item>
-              <Link to="/inicio" className="nav-link">Inicio</Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link to="/productCard" className="nav-link">Actividades</Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link to="/crear" className="nav-link">Crear Actividad</Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link to="/ " className="nav-link">Login</Link>
-            </Nav.Item>
-            
-          </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Buscar ..."
-              className="mr-2"
-              //onChange={(e) => searchProducts(e.target.value)}
-            />
-            <Button variant="outline-light">Buscar</Button>
-          </Form>
-        </Container>
-      </Navbar>
+      <Button variant="dark" onClick={handleSidebarToggle} style={{ position: 'absolute', top: 10, left: 10 }}>
+        ☰
+      </Button>
 
-      <Routes>
-        <Route path="/productCard" element={<Productos/>} />
-        <Route path="/crear" element={<Crear/>} />
-        <Route path="/inicio" element={<Inicio/>} />
-        <Route path="/" element={<Login/>} />
+      <Container fluid style={{ marginLeft: '50px' }}>
+        <Offcanvas show={showSidebar} onHide={() => setShowSidebar(false)}>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>SISTEMA DOCENTES - GRUPO06</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="flex-column">
+              <Nav.Item>
+                <Link to="/inicio" className="nav-link" onClick={handleSidebarToggle}>
+                  <FaHome /> Inicio
+                </Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link to="/productCard" className="nav-link" onClick={handleSidebarToggle}>
+                  <FaList /> Actividades
+                </Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link to="/crear" className="nav-link" onClick={handleSidebarToggle}>
+                  <FaPlus /> Crear Actividad
+                </Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link to="/" className="nav-link" onClick={handleSidebarToggle}>
+                  <FaSignInAlt /> Login
+                </Link>
+              </Nav.Item>
+            </Nav>
+          </Offcanvas.Body>
+        </Offcanvas>
 
-       
-      </Routes>
+        <main>
+          <Routes>
+            <Route path="/productCard" element={<Productos />} />
+            <Route path="/crear" element={<Crear />} />
+            <Route path="/inicio" element={<Inicio />} />
+            <Route path="/" element={<Login />} />
+          </Routes>
+        </main>
+      </Container>
     </Router>
-  )
+  );
 }
 
 export default Navegacion;

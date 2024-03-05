@@ -1,14 +1,13 @@
 import React from 'react';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Container, Nav, Form, Row, Col, Button, TabContainer } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { useState } from 'react';
 import { supabase } from './supabaseClient';
+import actividadcrear from '../src/img/actividad.png';
 
 function Crear() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [tema, setTema] = useState("");  // Agregamos el estado para el campo "tema"
+  const [tema, setTema] = useState("");
 
   async function createProduct() {
     try {
@@ -17,7 +16,6 @@ function Crear() {
         .insert({
           Titulo: name,
           Objetivo: description,
-          Actividad: tema  
         })
         .single();
 
@@ -30,36 +28,48 @@ function Crear() {
 
   return (
     <Container>
-      <Row className="d-flex justify-content-center align-items-center">
-        <Col xs={12} md={6}>
-          <h3>Crear Actividad</h3>
-          <Form.Label>Tema </Form.Label>
-          <Form.Control
-            type="text"
-            id="name"
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <Form.Label>Objetivo de la Aactividad</Form.Label>
-          <Form.Control
-            type="text"
-            id="description"
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-          <Form.Label>Activadad del Tema</Form.Label>
-          <Form.Control
-            type="text"
-            id="tema"
-            onChange={(e) => setTema(e.target.value)}
-            required
-          />
-          <br></br>
-          <Button type="button" onClick={() => createProduct()}>Crear</Button>
+      <Row className="justify-content-center align-items-center vh-100">
+        <Col xs={12} md={8} lg={6}>
+          <div className="border p-4 rounded text-center">
+            <img src={actividadcrear} alt="actividadcrear" style={{ width: '20%', borderRadius: '10px' }} />
+            <h3 className="mb-4">Crear Actividad</h3>
+            <Form>
+              <Form.Group controlId="name">
+                <Form.Label className="mb-1">Tema</Form.Label>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="description">
+                <Form.Label className="mb-1">Objetivo de la Actividad</Form.Label>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="tema">
+                <Form.Label className="mb-1">Actividad del Tema</Form.Label>
+                <Form.Control
+                  type="text"
+                  onChange={(e) => setTema(e.target.value)}
+                  required
+                />
+              </Form.Group>
+
+              <Button variant="success" type="button" onClick={() => createProduct()} className="mt-3">
+                Crear
+              </Button>
+            </Form>
+          </div>
         </Col>
       </Row>
     </Container>
-  )
+  );
 }
 
 export default Crear;
