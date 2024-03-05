@@ -47,7 +47,7 @@ function ProductRow({ product, onDelete, onUpdate }) {
     }
 
     return (
-        <tr className='text-center'>
+        <tr className='text-center' style={{backgroundColor: '#D7EAC0'}}>
             <td>{product.Titulo}</td>
             <td>{product.Objetivo}</td>
             <td>{product.Actividad}</td>
@@ -56,7 +56,7 @@ function ProductRow({ product, onDelete, onUpdate }) {
                 {/* Agregar la columna "Pendiente" con el checkbox y la lógica para cambiar la palabra */}
                 <Form.Check
                     type="checkbox"
-                    label={pendiente ? "Realizado" : "Pendiente"}
+                    label={pendiente ? "HECHO" : "POR HACER"}
                     checked={pendiente}
                     onChange={() => togglePendiente()}
                 />
@@ -65,49 +65,68 @@ function ProductRow({ product, onDelete, onUpdate }) {
             <td>
                 {editing === false ? (
                     <>
-                        <Button variant="danger" onClick={() => deleteProduct()}>
-                            Borrar
+                        <Button variant="outline-dark" onClick={() => deleteProduct()}>
+                            Eliminar
                         </Button>
-                        <Button variant="success" onClick={() => setEditing(true)}>
-                            Editar
+                        <Button variant="outline-success" onClick={() => setEditing(true)}>
+                            Modificar
                         </Button>
                     </>
                 ) : (
                     <>
-                        <h4>Editar Tarea</h4>
-                        <Button size="sm" onClick={() => setEditing(false)}>Regresar</Button>
-                        <br></br>
-                        <Form.Label>Nombre de la Tarea</Form.Label>
+                        <div style={{ backgroundColor: '#9EB7DB', padding: '4px' }}>
+                    <h4 style={{ color: '#FF5733' }}>MODIFICAR TAREA</h4>
+                    
+                    <br></br>
+                    <Form.Group controlId="formBasicName">
+                        <Form.Label style={{ color: '#2E86C1' }}>NOMBRE DE LA TAREA</Form.Label>
                         <Form.Control
                             type="text"
-                            id="name"
-                            defaultValue={product.name}
+                            value={name}
                             onChange={(e) => setName(e.target.value)}
+                            style={{
+                                borderColor: '#2E86C1',
+                                color: '#2E86C1'
+                            }}
                         />
-                        <Form.Label>Descripcion de la Tarea</Form.Label>
-                        <Form.Control
-                            type="text"
-                            id="description"
-                            defaultValue={product.description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                        <Form.Label>Tema de Tarea</Form.Label>
-                        <Form.Control
-                            type="text"
-                            id="tema"
-                            defaultValue={product.tema}
-                            onChange={(e) => setTema(e.target.value)}
-                        />
-                        <Form.Label>Calificación</Form.Label>
-                        <Form.Control
-                            type="text"
-                            id="pendiente"
-                            defaultValue={product.pendiente}
-                            onChange={(e) => setPendiente(e.target.value)}
-                        ></Form.Control>
-                         
-                        <br></br>
-                        <Button onClick={() => updateProduct()}>Actualizar</Button>
+                    </Form.Group>
+                    <Form.Label style={{ color: '#2E86C1' }}>DESCRIPCION</Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="description"
+                        defaultValue={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        style={{
+                            borderColor: '#2E86C1',
+                            color: '#2E86C1'
+                        }}
+                    />
+                    <Form.Label style={{ color: '#2E86C1' }}>TEMA</Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="tema"
+                        defaultValue={tema}
+                        onChange={(e) => setTema(e.target.value)}
+                        style={{
+                            borderColor: '#2E86C1',
+                            color: '#2E86C1'
+                        }}
+                    />
+                    <Form.Label style={{ color: '#2E86C1' }}>CALIFICACION</Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="pendiente"
+                        defaultValue={pendiente}
+                        onChange={(e) => setPendiente(e.target.value)}
+                        style={{
+                            borderColor: '#2E86C1',
+                            color: '#2E86C1'
+                        }}
+                    />
+                    <br></br>
+                    <Button variant="outline-success" onClick={() => updateProduct()}>MODIFICAR</Button>
+                    <Button variant="outline-dark" onClick={() => setEditing(false)}>ATRAS</Button>
+                </div>
                     </>
                 )}
             </td>
