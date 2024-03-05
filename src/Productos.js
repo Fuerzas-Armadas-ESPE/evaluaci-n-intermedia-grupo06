@@ -82,21 +82,21 @@ function Productos() {
     <div>
     <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand>Tareas Asignadas</Navbar.Brand>
+          <Navbar.Brand>ACTIVIDADES DECLARADAS</Navbar.Brand>
            
-          <Button variant="info" onClick={() => printProductData()}>Reporte</Button>
+          <Button variant="info" onClick={() => printProductData()}>INFORME</Button>
         </Container>
       </Navbar>
       <h4 className='text-center'></h4>
     <Container>
         <table className="table text-center">
-          <thead className="table-dark">
+          <thead style={{backgroundColor: '#4884D9'}}>
             <tr>
               <th>Tarea</th>
               <th>Descripción</th>
               <th>Tema</th>
+              <th>CALIFICACION</th>
               <th>Estado</th>
-              
               <th>Acciones</th>
             </tr>
           </thead>
