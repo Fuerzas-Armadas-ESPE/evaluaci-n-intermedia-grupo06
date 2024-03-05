@@ -16,7 +16,6 @@ function Crear() {
         .insert({
           Titulo: name,
           Objetivo: description,
-          Actividad: tema
         })
         .single();
 
